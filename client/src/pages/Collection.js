@@ -12,12 +12,15 @@ function Collection() {
 
   const fetchInsects = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/bugs');
+      const response = await fetch('http://localhost:5000/api/insects');
       const data = await response.json();
       setInsects(data);
       setLoading(false);
+      Bugsnag.leaveBreadcrumb('Insects Fetched', insects)
+
     } catch (err) {
-      Bugsnag.notify(err)  
+      Bugsnag.notify(err)
+      Bugsnag.leaveBreadcrumb('Insects Fetched', insects)
       console.error('Error fetching insects:', err);
       setLoading(false);
     }

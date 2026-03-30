@@ -21,7 +21,17 @@ function CaptureZone() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
     try {
+      // Validate form data before submission
+      if (!formData.name || !formData.species || !formData.location) {
+        const validationError = new Error('All fields are required to capture an insect');
+        Bugsnag.notify(validationError);
+        setError(validationError.message);
+        setTimeout(() => setError(null), 5000);
+        return;
+      }
+      
       const response = await fetch('http://localhost:5000/api/insects', {
         method: 'POST',
         headers: {
@@ -30,36 +40,23 @@ function CaptureZone() {
         body: JSON.stringify(formData)
       });
       
-      if (response.ok) {
-        setSuccess(true);
-        setFormData({ name: '', species: '', location: '', captured: false });
-        setTimeout(() => setSuccess(false), 3000);
+      if (!response.ok) {
+        throw new Error(`Failed to capture insect: ${response.status}`);
       }
-    } catch (err) {
-      console.error('Error adding insect:', err);
-    }
-  };
-
-  const handleException = () => {
-    try {
-      // Simulate validation error
-      if (formData.name === '') {
-        throw new Error('Cannot capture insect without a name!');
-      }
-      throw new Error('Simulated capture failure - try again!');
+      
+      setSuccess(true);
+      setFormData({ name: '', species: '', location: '', captured: false });
+      setTimeout(() => setSuccess(false), 3000);
+      
     } catch (err) {
       Bugsnag.notify(err);
-      setError(err.message);
-      console.error('Caught error:', err);
+      setError('Error adding insect to collection: ' + err.message);
+      console.error('Error adding insect:', err);
       setTimeout(() => setError(null), 5000);
     }
   };
 
-  const crashApp = () => {
-    // This will crash the app
-    const buggyArray = null;
-    buggyArray.forEach(item => console.log(item)); // TypeError
-  };
+  // Removed test error buttons - not suitable for production
 
   return (
     <div className="page">
@@ -80,15 +77,6 @@ function CaptureZone() {
           <strong>Success!</strong> Insect added to your collection!
         </div>
       )}
-
-      <div className="error-buttons">
-        <button className="btn-handled-error" onClick={handleException}>
-          Generate Handled Exception
-        </button>
-        <button className="btn-crash" onClick={crashApp}>
-          Crash Application
-        </button>
-      </div>
 
       <form onSubmit={handleSubmit}>
         <div className="form-group">

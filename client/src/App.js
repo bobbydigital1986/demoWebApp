@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import Collection from './pages/Collection';
 import CaptureZone from './pages/CaptureZone';
 import InsectGuide from './pages/InsectGuide';
+import BugsnagTestPanel from './components/BugsnagTestPanel';
 import './App.css';
 
 function App() {
@@ -34,6 +35,9 @@ function App() {
         <footer className="footer">
           <p>© 2026 Insect Capture App - Explore & Document Nature 🐛</p>
         </footer>
+        
+        {/* Development-only BugSnag test panel */}
+        <BugsnagTestPanel />
       </div>
     </Router>
   );

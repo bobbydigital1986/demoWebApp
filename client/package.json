@@ -21,7 +21,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build && npm run upload-sourcemaps",
     "build:no-upload": "react-scripts build",
-    "upload-sourcemaps": "bugsnag-cli upload js --api-key=$REACT_APP_BUGSNAG_API_KEY --version-name=$REACT_APP_VERSION --base-url='http://*/static/js' build/static/js",
+    "upload-sourcemaps": "dotenv -e .env -- bash -c 'bugsnag-cli upload js --api-key=$REACT_APP_BUGSNAG_API_KEY --version-name=$REACT_APP_VERSION --base-url=http://*/static/js build/static/js --overwrite'",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

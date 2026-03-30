@@ -27,15 +27,21 @@ The React app will run on http://localhost:3000
 
 #### Production Mode
 
-1. Build the React app:
-From 
+1. Build the React app (from the `client` directory):
 ```bash
+cd client
 npm run build
+cd ..
 ```
 
-2. Set environment variable and start the server:
+2. Start the server in production mode (from root directory):
 ```bash
 NODE_ENV=production npm start
+```
+
+Or combine both steps from the root:
+```bash
+npm run build && NODE_ENV=production npm start
 ```
 
 The full application will be served from http://localhost:5000

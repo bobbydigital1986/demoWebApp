@@ -43,27 +43,7 @@ function InsectGuide() {
     }
   ];
 
-  const handleException = () => {
-    try {
-      // Simulate a handled exception
-      const fakeArray = ['item1', 'item2'];
-      const result = fakeArray[10].toUpperCase(); // This will throw an error
-      console.log(result);
-    } catch (err) {
-      Bugsnag.notify(err);
-      setError('Failed to load insect guide data: ' + err.message);
-      console.error('Caught error:', err);
-      setTimeout(() => setError(null), 5000);
-    }
-  };
-
-  const crashApp = () => {
-    // This will cause the app to crash
-    const crashFunction = () => {
-      return crashFunction();  // Infinite recursion - stack overflow
-    };
-    crashFunction();
-  };
+  // Removed test error buttons - not suitable for production
 
   return (
     <div className="page">
@@ -78,15 +58,6 @@ function InsectGuide() {
           <strong>Error:</strong> {error}
         </div>
       )}
-
-      <div className="error-buttons">
-        <button className="btn-handled-error" onClick={handleException}>
-          Generate Handled Exception
-        </button>
-        <button className="btn-crash" onClick={crashApp}>
-          Crash Application
-        </button>
-      </div>
 
       <div className="insect-grid">
         {insectInfo.map((insect, index) => (

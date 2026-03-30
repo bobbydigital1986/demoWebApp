@@ -9,15 +9,21 @@
     "client": "cd client && npm start",
     "build": "cd client && npm run build"
   },
-  "keywords": ["insects", "capture", "react", "express"],
+  "keywords": [
+    "insects",
+    "capture",
+    "react",
+    "express"
+  ],
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.18.2",
+    "body-parser": "^1.20.2",
     "cors": "^2.8.5",
-    "body-parser": "^1.20.2"
+    "express": "^4.18.2"
   },
   "devDependencies": {
+    "dotenv-cli": "^11.0.0",
     "nodemon": "^3.0.1"
   }
 }
